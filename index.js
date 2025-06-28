@@ -6,53 +6,62 @@ const PORT = 3000;
 //JSON de productos
 const products = [
   {
-    "id": 1,
-    "name": "Zapatilla Urbana X1",
-    "price": 4500,
-    "description": "Zapatilla liviana ideal para el uso diario.",
-    "model": "ZX-100",
-    "stock": "Si"
-  },
-  {
-    "id": 2,
-    "name": "Remera Oversize Skull",
-    "price": 2500,
-    "description": "Remera de algodón estampada, corte oversize.",
-    "model": "RSK-22",
-    "stock": "No"
-  },
-  {
-    "id": 3,
-    "name": "Mochila Antirrobo Pro",
-    "price": 6800,
-    "description": "Mochila con compartimento oculto y puerto USB.",
-    "model": "MB-Pro",
-    "stock": "Si"
-  },
-  {
-    "id": 4,
-    "name": "Campera Rompeviento Trail",
-    "price": 9200,
-    "description": "Campera liviana, impermeable y resistente al viento.",
-    "model": "RW-Trail",
-    "stock": "No"
-  },
-  {
-    "id": 5,
-    "name": "Pantalón Jogger Cargo",
-    "price": 5600,
-    "description": "Jogger con bolsillos laterales estilo cargo.",
-    "model": "JCG-01",
-    "stock": "Si"
-  }
+    "id": 1,
+    "name": "Laptop Lenovo ThinkPad X1 Carbon",
+    "price": 1500.33,
+    "category": "Electrónica",
+    "stock": 25,
+    "description": "Ultraliviana y potente, ideal para profesionales que necesitan rendimiento y portabilidad. Pantalla de 14'' Full HD, procesador Intel i7 y 16GB de RAM."
+  },
+  {
+    "id": 2,
+    "name": "Auriculares Sony WH-1000XM5",
+    "price": 350.58,
+    "category": "Audio",
+    "stock": 40,
+    "description": "Auriculares inalámbricos con cancelación activa de ruido líder en el mercado, sonido de alta fidelidad y hasta 30 horas de batería."
+  },
+  {
+    "id": 3,
+    "name": "Silla Ergonómica Herman Miller Aeron",
+    "price": 1200.90,
+    "category": "Muebles",
+    "stock": 10,
+    "description": "Diseñada para brindar soporte ergonómico durante largas jornadas de trabajo. Ajustes personalizables y materiales de alta calidad."
+  },
+  {
+    "id": 4,
+    "name": "Smartphone Samsung Galaxy S24",
+    "price": 999.49,
+    "category": "Electrónica",
+    "stock": 30,
+    "description": "Teléfono inteligente de última generación con pantalla AMOLED de 6.8'', cámara triple de 108MP y procesador Exynos de alto rendimiento."
+  },
+  {
+    "id": 5,
+    "name": "Cafetera Nespresso Vertuo",
+    "price": 199.49,
+    "category": "Electrodomésticos",
+    "stock": 50,
+    "description": "Cafetera automática que prepara café de calidad barista con solo presionar un botón. Compatible con cápsulas Vertuo y con función de apagado automático."
+  }
 ]
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
+//MOSTRAR PRODUCTOS
 app.get('/products', (req, res) => {
   res.json(products)
+});
+
+app.get('/products/search', (req, res) => {
+  const { name, price, mayorQue } = req.query;
+  if(!isNaN(mayorQue)) {
+    const filtroMayor = products.filter((product) => product.price > mayorQue);
+    res.json(filtroMayor);
+  }
 });
 
 app.get('/products/:id', (req, res) => {
@@ -64,10 +73,4 @@ app.get('/products/:id', (req, res) => {
   } else {
     res.status(404).json("Producto no encontrado")
   }
-});
-
-app.get('/products/stock/:stock', (req, res) => {
-  const { stock } = req.params;
-  const filterByStock = products.filter((product) => product.stock.toLowerCase() == stock.toLowerCase());
-  res.json(filterByStock);
 });
