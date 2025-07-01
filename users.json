@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "bfa5f92b-133b-4369-871f-9b030745fb62",
         "firstname": "Lucía",
         "lastname": "Fernández",
         "age": 30,
@@ -9,8 +9,8 @@
         "password": "Luci@2025Xf"
     },
     {
-        "id": 2,
-        "name": "Carlos",
+        "id": "d3077551-2e36-4cd1-a8e0-7c54b634c8f0",
+        "firstname": "Carlos",
         "lastname": "Gómez",
         "age": 50,
         "email": "carlos.gomez@example.com",
@@ -18,7 +18,7 @@
         "password": "CarGz#89q"
     },
     {
-        "id": 3,
+        "id": "bdda3494-e7dd-41bf-9baa-cc65d4532f85",
         "name": "Mariana",
         "lastname": "Torres",
         "age": 28,
@@ -27,7 +27,7 @@
         "password": "MariT_77z"
     },
     {
-        "id": 4,
+        "id": "5b5cf451-3a2b-4ad6-b735-fcc1a38981ee",
         "firstname": "Julián",
         "lastname": "Rivas",
         "age": 25,
@@ -36,7 +36,7 @@
         "password": "JuliR!2024"
     },
     {
-        "id": 5,
+        "id": "dd2115ab-a0b2-4d0b-8f04-f1c5c6880c61",
         "firstname": "Sofía",
         "lastname": "Martínez",
         "age": 20,

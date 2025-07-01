@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "d050d8cd-c218-4af4-a467-fe9d39ab2f43",
         "name": "Laptop Lenovo ThinkPad X1 Carbon",
         "price": 1500.33,
         "category": "Electrónica",
@@ -8,7 +8,7 @@
         "description": "Ultraliviana y potente, ideal para profesionales que necesitan rendimiento y portabilidad. Pantalla de 14'' Full HD, procesador Intel i7 y 16GB de RAM."
     },
     {
-        "id": 2,
+        "id": "ba53d3db-013a-44f6-8b48-6f517ae695e9",
         "name": "Auriculares Sony WH-1000XM5",
         "price": 350.58,
         "category": "Audio",
@@ -16,7 +16,7 @@
         "description": "Auriculares inalámbricos con cancelación activa de ruido líder en el mercado, sonido de alta fidelidad y hasta 30 horas de batería."
     },
     {
-        "id": 3,
+        "id": "1061a3f5-7f47-4ecc-891a-cee651b57ee2",
         "name": "Silla Ergonómica Herman Miller Aeron",
         "price": 1200.90,
         "category": "Muebles",
@@ -24,7 +24,7 @@
         "description": "Diseñada para brindar soporte ergonómico durante largas jornadas de trabajo. Ajustes personalizables y materiales de alta calidad."
     },
     {
-        "id": 4,
+        "id": "acbd2f37-a1fb-476d-be1b-961b71de79cc",
         "name": "Smartphone Samsung Galaxy S24",
         "price": 999.49,
         "category": "Electrónica",
@@ -32,7 +32,7 @@
         "description": "Teléfono inteligente de última generación con pantalla AMOLED de 6.8'', cámara triple de 108MP y procesador Exynos de alto rendimiento."
     },
     {
-        "id": 5,
+        "id": "5329ab7c-57ab-4300-bc5c-602f1a9c0e7c",
         "name": "Cafetera Nespresso Vertuo",
         "price": 199.49,
         "category": "Electrodomésticos",
