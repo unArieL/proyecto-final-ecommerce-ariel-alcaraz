@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "firstname": "Lucía",
+        "lastname": "Fernández",
+        "age": 30,
+        "email": "lucia.fernandez@example.com",
+        "admin": true,
+        "password": "Luci@2025Xf"
+    },
+    {
+        "id": 2,
+        "name": "Carlos",
+        "lastname": "Gómez",
+        "age": 30,
+        "email": "carlos.gomez@example.com",
+        "admin": false,
+        "password": "CarGz#89q"
+    },
+    {
+        "id": 3,
+        "name": "Mariana",
+        "lastname": "Torres",
+        "age": 30,
+        "email": "mariana.torres@example.com",
+        "admin": false,
+        "password": "MariT_77z"
+    },
+    {
+        "id": 4,
+        "firstname": "Julián",
+        "lastname": "Rivas",
+        "age": 30,
+        "email": "julian.rivas@example.com",
+        "admin": true,
+        "password": "JuliR!2024"
+    },
+    {
+        "id": 5,
+        "firstname": "Sofía",
+        "lastname": "Martínez",
+        "age": 30,
+        "email": "sofia.martinez@example.com",
+        "admin": false,
+        "password": "SofiMtx#5"
+    }
+]
