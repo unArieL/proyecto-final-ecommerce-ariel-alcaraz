@@ -12,7 +12,7 @@
         "id": 2,
         "name": "Carlos",
         "lastname": "Gómez",
-        "age": 30,
+        "age": 50,
         "email": "carlos.gomez@example.com",
         "admin": false,
         "password": "CarGz#89q"
@@ -21,7 +21,7 @@
         "id": 3,
         "name": "Mariana",
         "lastname": "Torres",
-        "age": 30,
+        "age": 28,
         "email": "mariana.torres@example.com",
         "admin": false,
         "password": "MariT_77z"
@@ -30,7 +30,7 @@
         "id": 4,
         "firstname": "Julián",
         "lastname": "Rivas",
-        "age": 30,
+        "age": 25,
         "email": "julian.rivas@example.com",
         "admin": true,
         "password": "JuliR!2024"
@@ -39,7 +39,7 @@
         "id": 5,
         "firstname": "Sofía",
         "lastname": "Martínez",
-        "age": 30,
+        "age": 20,
         "email": "sofia.martinez@example.com",
         "admin": false,
         "password": "SofiMtx#5"
