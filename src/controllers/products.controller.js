@@ -1,7 +1,10 @@
 import fs from 'fs/promises';
 import crypto from 'crypto';
 
-import { validationProduct } from '../services/products.service.js';
+import { 
+    validationProduct,
+    validationPartialProduct
+ } from '../services/products.service.js';
 
 const readJsonProducts = () => fs.readFile('./products.json', 'utf8');
 
@@ -35,20 +38,36 @@ export const getProdcutById = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     const { id } = req.params;
+    const result = validationPartialProduct(req.body);
+
+    if (result.error) {
+        return res.status(400).json({ error: JSON.stringify(result.error.message) })
+    }
 
     try {
         const data = JSON.parse(await readJsonProducts());
         const findPosition = data.findIndex((product) => product.id === id);
 
+        if (findPosition === -1) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
 
+        const updateProduct = {
+            ...data[findPosition],
+            ...result.data
+        }
 
-        const { name, price, category, stock, description } = req.body;
+        const oldProduct = data[findPosition]
+        data[findPosition] = updateProduct;
+        await fs.writeFile('./products.json', JSON.stringify(data, null, 4));
+        res.status(201).json({ message: 'Producto actualizado', old: oldProduct, new: updateProduct});
 
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
 }
 
+//Falta terminar
 export const searchProduct = async (req, res) => {
     const { name, price, category, stock } = req.query;
 
@@ -70,15 +89,14 @@ export const searchProduct = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
 export const createProduct = async (req, res) => {
     const result = validationProduct(req.body);
-    console.log(result)
 
-    if(result.error) {
+    if (result.error) {
         return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
@@ -91,10 +109,10 @@ export const createProduct = async (req, res) => {
 
         data.push(newProduct);
         await fs.writeFile('./products.json', JSON.stringify(data, null, 4));
-        res.status(201).json(newProduct);
+        res.status(201).json({ message: 'Nuevo producto agregado', product: newProduct});
 
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -114,6 +132,6 @@ export const deleteProductById = async (req, res) => {
         res.status(200).json({ message: 'Producto eliminado', product: remove });
 
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 }
