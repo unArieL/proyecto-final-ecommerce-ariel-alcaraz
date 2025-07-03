@@ -18,7 +18,7 @@
     {
         "id": "1061a3f5-7f47-4ecc-891a-cee651b57ee2",
         "name": "Silla Ergonómica Herman Miller Aeron",
-        "price": 1200.90,
+        "price": 1200.9,
         "category": "Muebles",
         "stock": 10,
         "description": "Diseñada para brindar soporte ergonómico durante largas jornadas de trabajo. Ajustes personalizables y materiales de alta calidad."
@@ -38,5 +38,13 @@
         "category": "Electrodomésticos",
         "stock": 50,
         "description": "Cafetera automática que prepara café de calidad barista con solo presionar un botón. Compatible con cápsulas Vertuo y con función de apagado automático."
+    },
+    {
+        "id": "78cdafe7-a9f6-4f02-879a-172b7d17e134",
+        "name": "Monitor LG UltraGear 27",
+        "price": 450,
+        "category": "Electrónica",
+        "stock": 15,
+        "description": "Monitor gamer de 27 pulgadas con resolución QHD, tasa de refresco de 144Hz y tecnología G-Sync para una experiencia fluida y envolvente."
     }
 ]
