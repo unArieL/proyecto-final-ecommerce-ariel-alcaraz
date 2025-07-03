@@ -1,15 +1,17 @@
 import express from 'express';
 import productsRouter from './src/routes/products.routes.js';
 import usersRouter from './src/routes/users.routes.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-//Rutas de productos
-app.use('/api', productsRouter);
+app.use(express.json());
+app.use(cors())
 
-//Rutas de usuarios
-app.use('/api', usersRouter);
+//Rutas
+app.use('/api', productsRouter); //Productos
+app.use('/api', usersRouter); //Usuarios
 
 //Puerto de servidor
 app.listen(PORT, () => {
