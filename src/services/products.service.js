@@ -2,9 +2,9 @@ import * as z from 'zod/v4';
 
 const productsSchema = z.object({
     name: z.string(),
-    price: z.number().positive(),
+    price: z.number().nonnegative(),
     category: z.string(),
-    stock: z.number().int().positive(),
+    stock: z.number().int().nonnegative(),
     description: z.string()
 });
 

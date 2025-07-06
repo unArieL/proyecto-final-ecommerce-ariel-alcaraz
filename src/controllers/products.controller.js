@@ -1,16 +1,15 @@
 import fs from 'fs/promises';
 import crypto from 'crypto';
+import * as model from '../models/products.models.js';
 
-import { 
+import {
     validationProduct,
     validationPartialProduct
- } from '../services/products.service.js';
-
-const readJsonProducts = () => fs.readFile('./products.json', 'utf8');
+} from '../services/products.service.js';
 
 export const getAllProducts = async (req, res) => {
     try {
-        const data = JSON.parse(await readJsonProducts());
+        const data = await model.getAllProducts();
 
         res.status(200).json(data);
 
@@ -23,8 +22,7 @@ export const getProdcutById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const data = JSON.parse(await readJsonProducts());
-        const findById = data.find((product) => product.id === id);
+        const findById = await model.getProdcutById(id);
 
         if (!findById) {
             return res.status(404).json({ error: 'Producto no encontrado' })
@@ -41,26 +39,17 @@ export const updateProduct = async (req, res) => {
     const result = validationPartialProduct(req.body);
 
     if (result.error) {
-        return res.status(400).json({ error: JSON.stringify(result.error.message) })
+        return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
 
     try {
-        const data = JSON.parse(await readJsonProducts());
-        const findPosition = data.findIndex((product) => product.id === id);
+        const update = await model.updateProduct(id, result);
 
-        if (findPosition === -1) {
+        if (!update) {
             return res.status(404).json({ message: 'Producto no encontrado' });
         }
 
-        const updateProduct = {
-            ...data[findPosition],
-            ...result.data
-        }
-
-        const oldProduct = data[findPosition]
-        data[findPosition] = updateProduct;
-        await fs.writeFile('./products.json', JSON.stringify(data, null, 4));
-        res.status(201).json({ message: 'Producto actualizado', old: oldProduct, new: updateProduct});
+        res.status(201).json({ message: 'Producto actualizado', old: update[0], new: update[1] });
 
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -101,16 +90,8 @@ export const createProduct = async (req, res) => {
     }
 
     try {
-        const data = JSON.parse(await readJsonProducts());
-        const newProduct = {
-            id: crypto.randomUUID(),
-            ...result.data
-        };
-
-        data.push(newProduct);
-        await fs.writeFile('./products.json', JSON.stringify(data, null, 4));
-        res.status(201).json({ message: 'Nuevo producto agregado', product: newProduct});
-
+        const newProduct = await model.createProduct(result);
+        res.status(201).json({ message: 'Nuevo producto agregado', product: newProduct });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -120,17 +101,12 @@ export const deleteProductById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const data = JSON.parse(await readJsonProducts());
-        const findPosition = data.findIndex((product) => product.id === id);
-
-        if (findPosition === -1) {
+        const removeProduct = await model.deleteProductById(id);
+        if (!removeProduct) {
             return res.status(404).json({ message: 'Producto no encontrado' });
         }
 
-        const remove = data.splice(findPosition, 1);
-        await fs.writeFile('./products.json', JSON.stringify(data, null, 4));
-        res.status(200).json({ message: 'Producto eliminado', product: remove });
-
+        res.status(200).json({ message: 'Producto eliminado', product: removeProduct });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
