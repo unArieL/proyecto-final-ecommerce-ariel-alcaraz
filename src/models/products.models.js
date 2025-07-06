@@ -11,8 +11,23 @@ export const getAllProducts = async () => {
 }
 
 export const getProdcutById = async (id) => {
-    const findById = data.find((product) => product.id === id);
-    return findById
+    return data.find((product) => product.id === id);
+}
+
+export const searchProduct = async (product) => {
+
+    if (product.name) {
+        return data.filter(p => p.name.toLowerCase().includes(product.name));
+    } else if (product.category) {
+        return data.filter(p => p.category.toLowerCase().includes(product.category.toLowerCase()));
+    } else if (product.stock) {
+        return data.filter(p => p.stock == product.stock);
+    } else if (product.price) {
+        return data.filter(p => p.price == product.price);
+    } else {
+        return null;
+    }
+
 }
 
 export const createProduct = async (product) => {

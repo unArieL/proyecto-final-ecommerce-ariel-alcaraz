@@ -15,3 +15,7 @@ export const validationProduct = (valid) => {
 export const validationPartialProduct = (valid) => {
     return productsSchema.partial().safeParse(valid);
 }
+
+// export const diacriticos = (texto) => {
+//     return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+// }

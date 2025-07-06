@@ -1,5 +1,3 @@
-import fs from 'fs/promises';
-import crypto from 'crypto';
 import * as model from '../models/products.models.js';
 
 import {
@@ -10,6 +8,7 @@ import {
 export const getAllProducts = async (req, res) => {
     try {
         const data = await model.getAllProducts();
+        console.log(data)
 
         res.status(200).json(data);
 
@@ -22,7 +21,7 @@ export const getProdcutById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const findById = await model.getProdcutById(id);
+        const findById = model.getProdcutById(id);
 
         if (!findById) {
             return res.status(404).json({ error: 'Producto no encontrado' })
@@ -56,26 +55,15 @@ export const updateProduct = async (req, res) => {
     }
 }
 
-//Falta terminar
 export const searchProduct = async (req, res) => {
-    const { name, price, category, stock } = req.query;
-
     try {
-        const data = JSON.parse(await readJsonProducts());
+        const search = await model.searchProduct(req.query);
 
-        if (name) {
-            const filterName = data.filter((product) => product.name.toLowerCase().includes(name.toLowerCase()));
-            res.status(200).json(filterName);
-        } else if (category) {
-            const filterCategory = data.filter((product) => product.category.toLowerCase().includes(category.toLowerCase()));
-            res.status(200).json(filterCategory);
-        } else if (stock) {
-            const filterStock = data.filter((product) => product.stock == stockInt);
-            res.status(200).json(filterStock);
-        } else if (price) {
-            const filterPrice = data.filter((product) => product.price == price);
-            res.status(200).json(filterPrice);
+        if (!search) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
         }
+
+        res.status(200).json(search)
 
     } catch (error) {
         res.status(500).json({ error: error.message });
