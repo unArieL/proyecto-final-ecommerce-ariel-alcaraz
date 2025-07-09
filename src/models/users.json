@@ -4,7 +4,7 @@
         "firstname": "Lucía",
         "lastname": "Fernández",
         "age": 30,
-        "email": "lucia.fernandez@example.com",
+        "email": "lucia.fernandez@outlook.com",
         "admin": true,
         "password": "Luci@2025Xf"
     },
@@ -13,16 +13,16 @@
         "firstname": "Carlos",
         "lastname": "Gómez",
         "age": 50,
-        "email": "carlos.gomez@example.com",
+        "email": "carlos.gomez@gmail.com",
         "admin": false,
         "password": "CarGz#89q"
     },
     {
         "id": "bdda3494-e7dd-41bf-9baa-cc65d4532f85",
-        "name": "Mariana",
+        "firstname": "Mariana",
         "lastname": "Torres",
         "age": 28,
-        "email": "mariana.torres@example.com",
+        "email": "mariana.torres@gmail.com",
         "admin": false,
         "password": "MariT_77z"
     },
@@ -31,17 +31,26 @@
         "firstname": "Julián",
         "lastname": "Rivas",
         "age": 25,
-        "email": "julian.rivas@example.com",
+        "email": "julian.rivas@yahoo.com",
         "admin": true,
         "password": "JuliR!2024"
     },
     {
         "id": "dd2115ab-a0b2-4d0b-8f04-f1c5c6880c61",
         "firstname": "Sofía",
-        "lastname": "Martínez",
+        "lastname": "Martinez",
         "age": 20,
-        "email": "sofia.martinez@example.com",
+        "email": "sofia.martinez@yahoo.com",
         "admin": false,
         "password": "SofiMtx#5"
+    },
+    {
+        "id": "e7f83c82-00aa-4a2c-aa31-76cd43a8545a",
+        "firstname": "Carlos",
+        "lastname": "Fernandez",
+        "age": 30,
+        "email": "carlos.fernandez@gmail.com",
+        "admin": false,
+        "password": "7u8i9o0p"
     }
 ]

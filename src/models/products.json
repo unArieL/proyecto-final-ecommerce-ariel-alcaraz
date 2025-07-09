@@ -40,11 +40,11 @@
         "description": "Cafetera automática que prepara café de calidad barista con solo presionar un botón. Compatible con cápsulas Vertuo y con función de apagado automático."
     },
     {
-        "id": "8cb38c7c-de31-40d7-8701-c122180ef42d",
+        "id": "857c44ce-871d-4026-99b8-799523a56eff",
         "name": "Monitor LG UltraGear 27",
         "price": 999.99,
         "category": "Electrónica",
-        "stock": 20,
+        "stock": 0,
         "description": "Monitor gamer de 27 pulgadas con resolución QHD, tasa de refresco de 144Hz y tecnología G-Sync para una experiencia fluida y envolvente."
     }
 ]
