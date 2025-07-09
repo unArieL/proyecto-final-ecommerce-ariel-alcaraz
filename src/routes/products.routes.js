@@ -11,21 +11,21 @@ import {
 const router = express.Router();
 
 //Mostrar producto/s
-router.get('/products', getAllProducts);
+router.get('/', getAllProducts);
 
-//Filtrar un producto o conjunto de productos NO TERMINADO
-router.get('/products/search', searchProduct);
+//Filtrar productos
+router.get('/search', searchProduct);
 
 //Mostrar producto por ID
-router.get('/products/:id', getProdcutById);
+router.get('/:id', getProdcutById);
 
 //Crear un producto
-router.post('/products', createProduct);
+router.post('/', createProduct);
 
 //Actualiza un producto ya creado
-router.patch('/products/:id', updateProduct);
+router.patch('/:id', updateProduct);
 
 //Borra un producto por ID
-router.delete('/products/:id', deleteProductById);
+router.delete('/:id', deleteProductById);
 
 export default router;

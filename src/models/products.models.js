@@ -1,29 +1,25 @@
-import fs from 'fs/promises';
-import path from 'path';
-
-const __dirname = import.meta.dirname;
-const jsonPath = path.join(__dirname, './products.json');
-const readJsonProducts = () => fs.readFile(jsonPath, "utf-8");
-const data = JSON.parse(await readJsonProducts());
+import { readJsonProducts, writeJsonProducts } from "../services/file.service.js";
 
 export const getAllProducts = async () => {
-    return data;
+    return await readJsonProducts();
 }
 
 export const getProdcutById = async (id) => {
-    return data.find((product) => product.id === id);
+    const read = await readJsonProducts();
+    return read.find(p => p.id === id);
 }
 
 export const searchProduct = async (product) => {
+    const read = await readJsonProducts();
 
     if (product.name) {
-        return data.filter(p => p.name.toLowerCase().includes(product.name));
+        return read.filter(p => p.name.toLowerCase().includes(product.name));
     } else if (product.category) {
-        return data.filter(p => p.category.toLowerCase().includes(product.category.toLowerCase()));
+        return read.filter(p => p.category.toLowerCase().includes(product.category.toLowerCase()));
     } else if (product.stock) {
-        return data.filter(p => p.stock == product.stock);
+        return read.filter(p => p.stock == product.stock);
     } else if (product.price) {
-        return data.filter(p => p.price == product.price);
+        return read.filter(p => p.price == product.price);
     } else {
         return null;
     }
@@ -31,44 +27,48 @@ export const searchProduct = async (product) => {
 }
 
 export const createProduct = async (product) => {
+    const read = await readJsonProducts();
     const newProduct = {
         id: crypto.randomUUID(),
         ...product.data
     };
 
-    data.push(newProduct);
-    await fs.writeFile(jsonPath, JSON.stringify(data, null, 4));
+    read.push(newProduct);
+    await writeJsonProducts(read)
 
     return newProduct;
 }
 
 export const deleteProductById = async (id) => {
-    const findPosition = data.findIndex((product) => product.id === id);
+    const read = await readJsonProducts();
+    const findPosition = read.findIndex(p => p.id === id);
+    
     if (findPosition === -1) {
         return null;
     }
 
-    const removeProduct = data.splice(findPosition, 1);
-    await fs.writeFile(jsonPath, JSON.stringify(data, null, 4));
+    const removeProduct = read.splice(findPosition, 1);
+    await writeJsonProducts(read);    
 
     return removeProduct;
 }
 
 export const updateProduct = async (id, product) => {
-    const findPosition = data.findIndex((product) => product.id === id);
+    const read = await readJsonProducts();
+    const findPosition = read.findIndex((product) => product.id === id);
 
     if (findPosition === -1) {
         return null;
     }
 
     const updateProduct = {
-        ...data[findPosition],
+        ...read[findPosition],
         ...product.data
     }
 
-    const oldProduct = data[findPosition]
-    data[findPosition] = updateProduct;
-    await fs.writeFile(jsonPath, JSON.stringify(data, null, 4));
+    const oldProduct = read[findPosition]
+    read[findPosition] = updateProduct;
+    await writeJsonProducts(read);
 
     return [oldProduct, updateProduct];
 }

@@ -4,7 +4,7 @@ const productsSchema = z.object({
     name: z.string(),
     price: z.number().nonnegative(),
     category: z.string(),
-    stock: z.number().int().nonnegative(),
+    stock: z.number().int().nonnegative().default(0),
     description: z.string()
 });
 

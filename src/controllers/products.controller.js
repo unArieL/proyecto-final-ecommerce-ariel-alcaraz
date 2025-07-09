@@ -8,7 +8,6 @@ import {
 export const getAllProducts = async (req, res) => {
     try {
         const data = await model.getAllProducts();
-        console.log(data)
 
         res.status(200).json(data);
 
@@ -21,7 +20,7 @@ export const getProdcutById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const findById = model.getProdcutById(id);
+        const findById = await model.getProdcutById(id);
 
         if (!findById) {
             return res.status(404).json({ error: 'Producto no encontrado' })
@@ -90,6 +89,7 @@ export const deleteProductById = async (req, res) => {
 
     try {
         const removeProduct = await model.deleteProductById(id);
+        
         if (!removeProduct) {
             return res.status(404).json({ message: 'Producto no encontrado' });
         }
