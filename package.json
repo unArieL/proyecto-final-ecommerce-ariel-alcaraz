@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +20,10 @@
   },
   "homepage": "https://github.com/unArieL/proyecto-integrador-final#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "zod": "^3.25.70"
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "jsonwebtoken": "9.0.2",
+    "zod": "3.25.70"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
