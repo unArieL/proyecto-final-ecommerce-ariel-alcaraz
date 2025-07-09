@@ -1,54 +1,31 @@
 import express from 'express';
-import fs from 'fs/promises';
+import {
+    getAllUsers,
+    getUserById,
+    searchUser,
+    createUser,
+    deleteUserById,
+    updateUser
+} from '../controllers/users.controller.js'
 
 const router = express.Router();
 
 //Mostrar todos los usuarios
-router.get('/users', async (req, res) => {
-    try {
-        const response = await fs.readFile('./users.json', { encoding: 'utf8' });
-        const data = await JSON.parse(response);
+router.get('/', getAllUsers);
 
-        res.status(200).json(data);
+//Filtrar usuarios
+router.get('/search', searchUser);
 
-    } catch (error) {
-        res.status(404).json({ error: error.message });
-    }
-});
+//Mostrar usuario por ID
+router.get('/:id', getUserById);
 
-router.get('/users/search', async (req, res) => {
-    const { age } = req.query;
+//Crear usuario
+router.post('/', createUser);
 
-    try {
-        const response = await fs.readFile('./users.json', { encoding: 'utf8' });
-        const data = await JSON.parse(response);
-        const filterAge = data.filter((user) => user.age == age);
+//Actualizar un usuario ya creado
+router.patch('/:id', updateUser);
 
-        res.status(200).json(filterAge);
-
-    } catch (error) {
-        res.status(404).json({ error: error.message });
-    }
-});
-
-//Buscar usuario por id
-router.get('/users/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const response = await fs.readFile('./users.json', { encoding: 'utf8' });
-        const data = await JSON.parse(response);
-        const findById = data.find((user) => user.id == id);
-
-        if (findById) {
-            res.status(200).json(findById);
-        } else {
-            res.status(404).json({ error: 'Producto no encontrado' })
-        }
-
-    } catch (error) {
-        res.status(404).json({ error: error.message });
-    }
-});
+//Borrar un usuario por ID
+router.delete('/:id', deleteUserById);
 
 export default router;
