@@ -1,74 +1,80 @@
-import { readJsonProducts, writeJsonProducts } from "../services/file.service.js";
+import { db } from '../config/firebase.js';
+import {
+    collection,
+    getDocs,
+    getDoc,
+    addDoc,
+    deleteDoc,
+    doc,
+    updateDoc,
+    where,
+    query
+} from 'firebase/firestore';
+
+const productsCollection = collection(db, 'products');
 
 export const getAllProducts = async () => {
-    return await readJsonProducts();
+    const querySnapshot = await getDocs(productsCollection);
+    const products = [];
+    querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+    });
+    return products;
 }
 
 export const getProdcutById = async (id) => {
-    const read = await readJsonProducts();
-    return read.find(p => p.id === id);
+    const querySnapshot = await getDoc(doc(productsCollection, id));
+    return querySnapshot.data();
 }
 
 export const searchProduct = async (product) => {
-    const read = await readJsonProducts();
+    let conditions = [];
 
     if (product.name) {
-        return read.filter(p => p.name.toLowerCase().includes(product.name));
-    } else if (product.category) {
-        return read.filter(p => p.category.toLowerCase().includes(product.category.toLowerCase()));
-    } else if (product.stock) {
-        return read.filter(p => p.stock == product.stock);
-    } else if (product.price) {
-        return read.filter(p => p.price == product.price);
-    } else {
-        return null;
+        conditions.push(where('keywords', 'array-contains', product.name.toLowerCase())) ;
     }
+
+    if(product.price) {
+        conditions.push(where('price', '==', Number(product.price)));
+    }
+
+    if(product.category) {
+        conditions.push(where('category', '==', product.category));
+    }
+
+    if(product.stock) {
+        conditions.push(where('stock', '==', Number(product.stock)));
+    }
+
+    if(product.buscar) {
+        conditions.push(where('keywords', 'array-contains', product.buscar.toLowerCase()));
+    }
+
+    const search = query(productsCollection, ...conditions);
+    const querySnapshot = await getDocs(search);
+    const products = [];
+    querySnapshot.forEach(doc => {
+        products.push({
+            id: doc.id,
+            ...doc.data()
+        });
+    })
+    return products;
 
 }
 
 export const createProduct = async (product) => {
-    const read = await readJsonProducts();
-    const newProduct = {
-        id: crypto.randomUUID(),
-        ...product.data
-    };
-
-    read.push(newProduct);
-    await writeJsonProducts(read)
-
-    return newProduct;
+    await addDoc(productsCollection, product.data)
+    return product.data;
 }
 
 export const deleteProductById = async (id) => {
-    const read = await readJsonProducts();
-    const findPosition = read.findIndex(p => p.id === id);
-    
-    if (findPosition === -1) {
-        return null;
-    }
-
-    const removeProduct = read.splice(findPosition, 1);
-    await writeJsonProducts(read);    
-
-    return removeProduct;
+    const removeProduct = await getDoc(doc(productsCollection, id))
+    await deleteDoc(doc(productsCollection, id));
+    return removeProduct.data();
 }
 
 export const updateProduct = async (id, product) => {
-    const read = await readJsonProducts();
-    const findPosition = read.findIndex((product) => product.id === id);
-
-    if (findPosition === -1) {
-        return null;
-    }
-
-    const updateProduct = {
-        ...read[findPosition],
-        ...product.data
-    }
-
-    const oldProduct = read[findPosition]
-    read[findPosition] = updateProduct;
-    await writeJsonProducts(read);
-
-    return [oldProduct, updateProduct];
+    const querySnapshot = doc(productsCollection, id);
+    await updateDoc(querySnapshot, product.data);
 }

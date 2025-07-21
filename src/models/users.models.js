@@ -1,10 +1,27 @@
-import { readJsonUsers, writeJsonUsers } from "../services/file.service.js";
-
 //Con el tiempo quiesiera hacerlo más amigable en la terminal,
 // que la funcion diga lo que hace o muestre los datos que se estan manejando.
+import { db } from '../config/firebase.js';
+import {
+    collection,
+    getDocs,
+    getDoc,
+    addDoc,
+    deleteDoc,
+    doc,
+    updateDoc,
+    where,
+    query
+} from 'firebase/firestore';
+
+const usersCollection = collection(db, 'users');
 
 export const getAllUsers = async () => {
-    return await readJsonUsers();
+    const querySnapshot = await getDocs(usersCollection);
+    const users = [];
+    querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() });
+    });
+    return users;
 }
 
 export const getUserById = async (id) => {

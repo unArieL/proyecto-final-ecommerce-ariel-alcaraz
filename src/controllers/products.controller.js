@@ -23,9 +23,13 @@ export const getProdcutById = async (req, res) => {
         const findById = await model.getProdcutById(id);
 
         if (!findById) {
-            return res.status(404).json({ error: 'Producto no encontrado' })
+            return res.status(404).json({ message: 'Producto no encontrado' })
         }
-        res.status(200).json(findById);
+
+        res.status(200).json({ 
+            message: 'Producto encontrado',
+            product: findById
+        });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -41,13 +45,9 @@ export const updateProduct = async (req, res) => {
     }
 
     try {
-        const update = await model.updateProduct(id, result);
+        await model.updateProduct(id, result);
 
-        if (!update) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
-        }
-
-        res.status(201).json({ message: 'Producto actualizado', old: update[0], new: update[1] });
+        res.status(201).json({ message: 'Producto actualizado' });
 
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -77,8 +77,13 @@ export const createProduct = async (req, res) => {
     }
 
     try {
-        const newProduct = await model.createProduct(result);
-        res.status(201).json({ message: 'Nuevo producto agregado', product: newProduct });
+        const product = await model.createProduct(result);
+
+        res.status(201).json({
+            message: 'Nuevo producto agregado',
+            product
+        });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

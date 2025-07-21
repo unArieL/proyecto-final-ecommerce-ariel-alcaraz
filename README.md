@@ -1,4 +1,3 @@
-
 # 🛒 API de Productos y Usuarios
 
 Este proyecto es una API RESTful creada con **Node.js** y **Firebase Firestore**, que permite gestionar productos y usuarios. Incluye autenticación, filtrado y conexión a base de datos en la nube.
@@ -14,6 +13,7 @@ Este proyecto es una API RESTful creada con **Node.js** y **Firebase Firestore**
 - UUID
 - JWT
 - CORS
+- Zod
 
 ---
 
@@ -21,22 +21,25 @@ Este proyecto es una API RESTful creada con **Node.js** y **Firebase Firestore**
 
 ```
 📂 src/
-    ├── 📂 config/
-            └── 📄 firebase.js
-    ├── 📂 controllers/
-            ├── 📄
-            ├── 📄 products.controllers.js
-            └── 📄 users.controllers.js
-    ├── 📂 models/
-            ├── 📄 products.models
-            └── 📄 users.models
-    ├── 📂 routes/
-            ├── 📄 
-            ├── 📄 prodcuts.routes.js
-            └── 📄 users.routes.js
-    └── 📂 services/
-            ├── 📄 products.services.js
-            └── 📄 users.services.js
+        ├── 📂 config/
+                ├── 📄 firebase.js
+                └── 📄 token-generator.js
+        ├── 📂 controllers/
+                ├── 📄 auth.controllers.js
+                ├── 📄 products.controllers.js
+                └── 📄 users.controllers.js
+        ├── 📂 middleware/
+                └── 📄 auth.middleware.js
+        ├── 📂 models/
+                ├── 📄 products.models
+                └── 📄 users.models
+        ├── 📂 routes/
+                ├── 📄 auth.routes.js
+                ├── 📄 prodcuts.routes.js
+                └── 📄 users.routes.js
+        └── 📂 services/
+                ├── 📄 products.services.js
+                └── 📄 users.services.js
 📄 index.js
 ```
 
@@ -57,7 +60,7 @@ npm install
 ### Desarrollo:
 
 ```bash
-npm run server
+npm run dev
 ```
 
 ### Producción:
@@ -78,6 +81,10 @@ npm start
 
 ## 📬 Rutas de la API
 
+### Unico usuario de momento
+
+`"email": "julian.rivas@yahoo.com", "password": "JuliR!2024"`
+
 ### Productos
 
 - `GET /api/products` → Listar todos los productos
@@ -85,9 +92,9 @@ npm start
 - `POST /api/products` → Crear producto
 - `PATCH /api/products/:id` → Actualizar producto
 - `DELETE /api/products/:id` → Eliminar producto
-- `GET /api/products/search?name=Mochila` → Buscar por nombre (ignora mayúsculas)
+- `GET /api/products/search?buscar=Mochila` → Buscar (ignora mayúsculas)
 
-### Usuarios
+### Usuarios (solo admin)
 
 - `POST /api/register` → Registrar usuario
 - `POST /api/login` → Iniciar sesión
@@ -98,7 +105,7 @@ npm start
 ## 🔎 Funcionalidades
 
 - Creación, lectura, actualización y eliminación de productos.
-- Filtro por nombre, stock, categoría, etc.
+- Filtro por stock, categoría, precio.
 - Uso de `keywords` para facilitar búsquedas.
 - Seguridad con JWT.
 - Datos almacenados en Firestore.
@@ -117,11 +124,12 @@ npm start
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
 - [JWT](https://jwt.io/introduction)
+- [Zod](https://zod.dev/)
 
 ---
 
 ## 👤 Autor
 
-**Ariel Alcaraz Checa**  
+**Ariel Alcaraz Checa**
 [GitHub](https://github.com/unArieL)  
 [LinkedIn](https://linkedin.com/in/arielalcarazcheca)

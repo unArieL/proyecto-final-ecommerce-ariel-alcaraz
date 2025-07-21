@@ -1,4 +1,5 @@
 import express from 'express';
+import { authentication } from '../middleware/auth.middleware.js';
 import {
     getAllProducts,
     getProdcutById,
@@ -17,15 +18,15 @@ router.get('/', getAllProducts);
 router.get('/search', searchProduct);
 
 //Mostrar producto por ID
-router.get('/:id', getProdcutById);
+router.get('/:id', authentication, getProdcutById);
 
 //Crear un producto
-router.post('/', createProduct);
+router.post('/', authentication, createProduct);
 
 //Actualiza un producto ya creado
-router.patch('/:id', updateProduct);
+router.patch('/:id', authentication, updateProduct);
 
 //Borra un producto por ID
-router.delete('/:id', deleteProductById);
+router.delete('/:id', authentication, deleteProductById);
 
 export default router;
