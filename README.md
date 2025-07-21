@@ -130,6 +130,6 @@ npm start
 
 ## 👤 Autor
 
-**Ariel Alcaraz Checa**
+**Ariel Alcaraz Checa**  
 [GitHub](https://github.com/unArieL)  
 [LinkedIn](https://linkedin.com/in/arielalcarazcheca)
